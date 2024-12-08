@@ -1,11 +1,10 @@
 import qrcode
 
-def generate_qr_code(data, fill_color="#000000", back_color="#FFFFFF"):
-    qr = qrcode.QRCode(version=1, border=4)
-    qr.add_data(data)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color=fill_color, back_color=back_color)
-    img.save("qrcode.png")
+def generate_qr_code(data, filename="qrcode.png", fill_color="#000000", back_color="#FFFFFF"):
+    qr = qrcode.make(data)
+    img = qr.convert("RGB")
+    img = img.point(lambda p: fill_color if p == 0 else back_color)
+    img.save(filename)
 
 # Example usage
 link = 'https://github.com/GreenKeewi/qrcodeGenerator'
